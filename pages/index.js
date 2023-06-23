@@ -1,118 +1,86 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import { BlogContext } from '@/context/blogContext';
+import createBlogHook from '@/hooks/createBlogHook';
+import Image from 'next/image';
+import city from "../public/city.jpg";
+import React, { useContext, useEffect, useState } from 'react';
+import createBlogImageHook from '@/hooks/createBlogImageHook';
 
-const inter = Inter({ subsets: ['latin'] })
+const Home = () => {
+  const [text, setText] = useState("");
+  const [imageData, setImageData] = useState("");
+  const { blogData, refresh, setRefresh, loading } = useContext(BlogContext);
 
-export default function Home() {
+  const handleSubmit = async () => {
+    const imageName = `${imageData[0].name.split(".")[0]}.${imageData[0].name.split(".")[1]}`;
+    // createBlogHook(text, refresh, setRefresh, imageName);
+    if (imageData) {
+      await createBlogImageHook(imageData, text);
+      fetch('/api/post_blog', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ description: text, imageName }),
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            setRefresh(refresh + 1);
+          } else {
+            console.log("some thing went wrong when creating this data");
+          }
+        });
+    }
+  };
+
+  // for checking the scroll of the website to change the nav bar style
+  const [scrollY, setScrollY] = useState(0);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">pages/index.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main>
+      {/* small banner image */}
+      <div className='w-full'>
+        <Image className='w-full h-24 object-cover' src={city} alt="banner" />
+      </div>
+      {/* navbar */}
+      <div className={` ${scrollY < 99 ? "bg-transparent" : "bg-white"}  h-24 flex items-center w-full fixed top-0`}>
+        <div className='mx-auto' style={{ width: "1200px" }}>
+          <h1 className='text-4xl italic font-bold'>TITLE</h1>
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+      {/* body */}
+      <div className='mx-auto mt-5' style={{ minWidth: "1200px" }}>
+        <input type="file"
+          name="image"
+          placeholder='your image'
+          onChange={(e) => setImageData(e.target.files)}
         />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+        <input onChange={(e) => { setText(e.target.value); }} type="text" className='p-2 w-96 border-blue-500 border' placeholder='type here' />
+        <button onClick={handleSubmit} type='submit' className='bg-blue-500 rounded text-white p-2'>Submit</button>
+        <br /><br />
+        <div className='grid grid-rows-4 grid-flow-col gap-4'>
+          {!loading ? blogData?.map(data => (
+            <div key={data._id} className='border w-fit mx-auto border-black p-3 mb-5'>
+              <Image src={`/images/${data.imageName}`} alt="name" width={500} height={300} />
+              <p className='text-lg'>
+                {data.description}
+              </p>
+            </div>
+          )) : "loading..."}
+        </div>
       </div>
     </main>
-  )
-}
+  );
+};
+
+export default Home;
+
+// todo: publish it in github and hide the user name and password in env.local. fix the vercel problem of not getting the user name and password form the env.local
