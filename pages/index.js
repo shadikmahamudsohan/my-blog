@@ -4,6 +4,9 @@ import Image from 'next/image';
 import city from "../public/city.jpg";
 import React, { useContext, useEffect, useState } from 'react';
 import createBlogImageHook from '@/hooks/createBlogImageHook';
+import SingleCard from '@/components/SingleCard';
+import Navbar from '@/components/Navbar';
+import Cards from '@/components/Cards';
 
 const Home = () => {
   const [text, setText] = useState("");
@@ -51,13 +54,9 @@ const Home = () => {
         <Image className='w-full h-24 object-cover' src={city} alt="banner" />
       </div>
       {/* navbar */}
-      <div className={` ${scrollY < 99 ? "bg-transparent" : "bg-white"}  h-24 flex items-center w-full fixed top-0`}>
-        <div className='mx-auto' style={{ width: "1200px" }}>
-          <h1 className='text-4xl italic font-bold'>TITLE</h1>
-        </div>
-      </div>
+      <Navbar scrollY={scrollY} />
       {/* body */}
-      <div className='mx-auto mt-5' style={{ minWidth: "1200px" }}>
+      <div className='mx-auto mt-5 ' style={{ maxWidth: "1200px" }}>
         <input type="file"
           name="image"
           placeholder='your image'
@@ -66,21 +65,11 @@ const Home = () => {
         <input onChange={(e) => { setText(e.target.value); }} type="text" className='p-2 w-96 border-blue-500 border' placeholder='type here' />
         <button onClick={handleSubmit} type='submit' className='bg-blue-500 rounded text-white p-2'>Submit</button>
         <br /><br />
-        <div className='grid grid-rows-4 grid-flow-col gap-4'>
-          {!loading ? blogData?.map(data => (
-            <div key={data._id} className='border w-fit mx-auto border-black p-3 mb-5'>
-              <Image src={`/images/${data.imageName}`} alt="name" width={500} height={300} />
-              <p className='text-lg'>
-                {data.description}
-              </p>
-            </div>
-          )) : "loading..."}
-        </div>
+        <Cards blogData={blogData} loading={loading} />
+
       </div>
     </main>
   );
 };
 
 export default Home;
-
-// todo: publish it in github and hide the user name and password in env.local. fix the vercel problem of not getting the user name and password form the env.local

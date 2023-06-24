@@ -6,3 +6,19 @@
     width: 1200px;
     margin: auto;
 }
+
+.blog-card {}
+
+.fadeIn {
+    animation: 500ms fadeIn;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 100;
+    }
+}

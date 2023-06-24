@@ -14,6 +14,10 @@ try {
             type: String,
             required: [true, "please provide a image name"],
         },
+        title: {
+            type: String,
+            required: [true, "please provide a short description"],
+        }
     }, {
         timestamps: true,
     });
