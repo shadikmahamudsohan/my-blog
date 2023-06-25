@@ -65,6 +65,8 @@ const Home = () => {
         <input onChange={(e) => { setText(e.target.value); }} type="text" className='p-2 w-96 border-blue-500 border' placeholder='type here' />
         <button onClick={handleSubmit} type='submit' className='bg-blue-500 rounded text-white p-2'>Submit</button>
         <br /><br />
+
+
         <Cards blogData={blogData} loading={loading} />
 
       </div>

@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+
+* {
+    color: #555555;
+    font-family: sans-serif;
+}
+
 .title {
     width: 1200px;
     margin: auto;
@@ -21,4 +27,19 @@
     100% {
         opacity: 100;
     }
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    /* border-radius: 50%; */
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: #555555;
 }

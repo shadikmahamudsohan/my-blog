@@ -1,16 +1,15 @@
 import { connectMongoDB } from "../../libs/mongoConnect";
-import Blog from "../../models/blogModel";
+import Comment from "../../models/commentModel";
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {
         res.status(405).send({ msg: "Only post request are allowed" });
         return;
     }
-    const blogData = req.body;
-    console.log(blogData);
+    const commentData = req.body;
     try {
         await connectMongoDB();
-        const data = await Blog.create(blogData);
+        const data = await Comment.create(commentData);
         if (data) {
             res.status(200).send({
                 success: true,
@@ -18,7 +17,7 @@ export default async function handler(req, res) {
             });
         }
     } catch (error) {
-        console.log(error.message);
-        res.status(400).json({ error: error.message, msg: "Something went wrong" });
+        console.log(error);
+        res.status(400).send({ error, msg: "Something went wrong" });
     }
 }

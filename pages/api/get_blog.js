@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         await connectMongoDB();
         const data = await Blog.find();
         if (data) {
-            res.status(201).send({
+            res.status(200).send({
                 success: true,
                 result: data
             });

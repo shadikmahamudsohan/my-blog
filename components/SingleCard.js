@@ -1,6 +1,7 @@
 import { BlogContext } from '@/context/blogContext';
 import Image from 'next/image';
 import React, { useContext } from 'react';
+import Link from "next/link";
 
 const SingleCard = ({ data }) => {
     const { refresh, setRefresh } = useContext(BlogContext);
@@ -18,9 +19,11 @@ const SingleCard = ({ data }) => {
     };
     return (
         <div className="blog-card fadeIn">
-            <div style={{ position: 'relative', width: '100%', height: '0', paddingBottom: '56.25%' }}>
-                <Image src={`/images/${data.imageName}`} alt="name" layout="fill" objectFit="cover" />
-            </div>
+            <Link href={`/blog/${data._id}`}>
+                <div style={{ position: 'relative', width: '100%', height: '0', paddingBottom: '56.25%' }}>
+                    <Image src={`/images/${data.imageName}`} alt="name" layout="fill" objectFit="cover" />
+                </div>
+            </Link>
             <p className="text-lg">
                 {data.description}
             </p>

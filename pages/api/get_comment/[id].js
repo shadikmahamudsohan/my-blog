@@ -1,16 +1,15 @@
+import Comment from "@/models/commentModel";
 import { connectMongoDB } from "../../../libs/mongoConnect";
-import Blog from "../../../models/blogModel";
 
 export default async function handler(req, res) {
-    if (req.method !== "DELETE") {
-        res.status(405).send({ msg: "Only DELETE request are allowed" });
+    if (req.method !== "GET") {
+        res.status(405).send({ msg: "Only GET request are allowed" });
         return;
     }
     const { id } = req.query;
-    console.log(id);
     try {
         await connectMongoDB();
-        const data = await Blog.deleteOne({ _id: id });
+        const data = await Comment.find({ blogId: id });
         if (data) {
             res.status(200).send({
                 success: true,
