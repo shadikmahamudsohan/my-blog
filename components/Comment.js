@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import SingleComment from './SingleComment';
 import { UserContext } from '@/context/userContext';
+import CommentReplay from './CommentReplay';
 
 const Comment = ({ id }) => {
     const [comment, setComment] = useState("");
@@ -53,6 +54,27 @@ const Comment = ({ id }) => {
             });
     }, [id, refresh]);
 
+    const handleStatusUpdate = (status, id) => {
+        setCommentLoading(true);
+        fetch(`/api/update_comment/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+            },
+            body: JSON.stringify({ status }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    setRefresh(refresh + 1);
+                    setCommentLoading(false);
+                } else {
+                    console.log("some thing went wrong when updating this data");
+                }
+            });
+    };
+
     return (
         <div className='mb-40'>
             <h1 className='text-2xl font-bold mb-10'>comments</h1>
@@ -60,64 +82,25 @@ const Comment = ({ id }) => {
 
                 userData.role === "admin" ?
                     commentData?.map(data => (
-                        <SingleComment key={data._id} data={data} />
+                        <SingleComment key={data._id} data={data} userData={userData} handleStatusUpdate={handleStatusUpdate} />
                     ))
                     : <p>You need to be a admin</p>
             }
 
             <h1 className='text-2xl font-bold my-10'>live a reply</h1>
+            <CommentReplay
+                handleSubmit={handleSubmit}
+                focusedField={focusedField}
+                handleBlur={handleBlur}
+                email={email}
+                comment={comment}
+                handleFocus={handleFocus}
+                setComment={setComment}
+                setEmail={setEmail}
+                setName={setName}
+                name={name}
+            />
 
-            <form onSubmit={handleSubmit} style={{ maxWidth: "600px" }}>
-                <div className='flex flex-col mb-5'>
-                    <label htmlFor="name" className={focusedField === 'name' ? 'text-black' : 'text-gray-500'}>
-                        Your Name:
-                    </label>
-                    <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Enter your name"
-                        className='outline-none border-b border-gray-200 focus:border-black py-3'
-                        onFocus={() => handleFocus('name')}
-                        onBlur={handleBlur}
-                        required
-                    />
-                </div>
-                <div className='flex flex-col mb-5'>
-                    <label htmlFor="email" className={focusedField === 'email' ? 'text-black' : 'text-gray-500'}>
-                        Your Email:
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter your email"
-                        className='outline-none border-b border-gray-200 focus:border-black py-3'
-                        onFocus={() => handleFocus('email')}
-                        onBlur={handleBlur}
-                        required
-                    />
-                </div>
-                <div className="flex flex-col mb-5">
-                    <label htmlFor="comment" className={focusedField === 'comment' ? 'text-black' : 'text-gray-500'}>
-                        Message:
-                    </label>
-                    <textarea
-                        id="comment"
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                        placeholder="Enter your comment"
-                        rows={4}
-                        className="outline-none border-b border-gray-200 focus:border-black py-3 focus:text-black"
-                        onFocus={() => handleFocus('comment')}
-                        onBlur={handleBlur}
-                        required
-                    />
-                </div>
-                <button type="submit" className="outline-none border-b text-gray-500 border-gray-200 hover:border-black  hover:text-black">Submit</button>
-            </form>
         </div>
     );
 };

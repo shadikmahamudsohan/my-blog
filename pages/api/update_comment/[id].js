@@ -1,4 +1,6 @@
 import { connectMongoDB } from "@/libs/mongoConnect";
+import { authMiddleware } from "@/middleware/authMiddleware";
+import verifyToken from "@/middleware/verifyToken";
 import Comment from "@/models/commentModel";
 
 export default async function handler(req, res) {
@@ -7,17 +9,21 @@ export default async function handler(req, res) {
         return;
     }
     const { id } = req.query;
-    const { data } = req.body;
+    const { status } = req.body;
     try {
         await connectMongoDB();
-        const result = await Comment.findOneAndUpdate(
-            { _id: id }, // Find the document with this _id field
-            { status: data }, // Update the document with this data
-            { new: true } // Return the updated document instead of the original document
-        );
-        res.status(200).json({
-            success: true,
-            result: result
+        await verifyToken(req, res);
+        req.requiredRole = "admin";
+        authMiddleware(req, res, async () => {
+            const result = await Comment.findOneAndUpdate(
+                { _id: id },
+                { status: status },
+                { new: true }
+            );
+            res.status(200).json({
+                success: true,
+                result: result
+            });
         });
     } catch (error) {
         console.log(error);
