@@ -8,16 +8,18 @@ export default async function handler(req, res) {
         res.status(405).send({ msg: "Only patch requests are allowed" });
         return;
     }
+
+    const data = req.body;
     try {
         await connectMongoDB();
         await verifyToken(req, res);
-        const { email } = req.user;
+        const { id } = req.query;
         const { role } = req.body;
         req.requiredRole = "admin";
         // Implementing the middleware
         authMiddleware(req, res, async () => {
             const result = await User.findOneAndUpdate(
-                { email },
+                { _id: id },
                 { role },
                 { new: true }
             );

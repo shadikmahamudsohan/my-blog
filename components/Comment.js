@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SingleComment from './SingleComment';
+import { UserContext } from '@/context/userContext';
 
 const Comment = ({ id }) => {
     const [comment, setComment] = useState("");
@@ -9,6 +10,8 @@ const Comment = ({ id }) => {
     const [refresh, setRefresh] = useState(0);
     const [commentData, setCommentData] = useState([]);
     const [commentLoading, setCommentLoading] = useState(false);
+    const { userData, loading } = useContext(UserContext);
+    console.log(userData);
     const handleFocus = (field) => {
         setFocusedField(field);
     };

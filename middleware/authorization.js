@@ -1,17 +1,18 @@
-const User = require("@/models/userModel");
+const { default: User } = require("@/models/userModel");
 
-module.exports = (email, role) => {
-    return async (req, res, next) => {
-        console.log("in");
-        const user = await User.findOne({ email }); // getting the data for user database
-
-        const userRole = user?.role;
-        if (userRole !== role) {
-            return res.status(403).json({
-                status: "fail",
-                error: 'Your are not authorized to access this.'
+module.exports = async (email, role, res) => {
+    try {
+        const userData = User.findOne({ email: email });
+        if (userData.role !== role) {
+            return res.status(401).json({
+                status: "Fail",
+                error: "You are not authorized"
             });
         }
-        next();
-    };
+    } catch (error) {
+        return res.status(401).json({
+            status: "Fail",
+            error: "Some thing went wrong"
+        });
+    }
 };
