@@ -26,14 +26,14 @@ const Login = () => {
                 });
         }
     }, [user]);
-    // if (error) {
-    //     console.log(error.message);
-    // }
+    if (error) {
+        console.log(error.message);
+    }
     return (
         <div className='w-full min-h-screen flex justify-center items-center'>
             <button className='px-5 py-3 bg-blue-600 text-white active:bg-blue-900'
                 onClick={() => { signInWithGoogle(); }}
-            >Login with Google</button>
+            >Login with Google</button> <br />
             {(loading || error) && <p className='text-xl mt-10'>{loading && "Loading..." || error && error.message}</p>}
         </div>
     );
