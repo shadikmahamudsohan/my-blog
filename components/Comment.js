@@ -11,7 +11,6 @@ const Comment = ({ id }) => {
     const [commentData, setCommentData] = useState([]);
     const [commentLoading, setCommentLoading] = useState(false);
     const { userData, loading } = useContext(UserContext);
-    console.log(userData);
     const handleFocus = (field) => {
         setFocusedField(field);
     };
@@ -57,10 +56,13 @@ const Comment = ({ id }) => {
     return (
         <div className='mb-40'>
             <h1 className='text-2xl font-bold mb-10'>comments</h1>
-            {commentLoading ? "loading..." :
-                commentData?.map(data => (
-                    <SingleComment key={data._id} data={data} />
-                ))
+            {commentLoading || loading ? "loading..." :
+
+                userData.role === "admin" ?
+                    commentData?.map(data => (
+                        <SingleComment key={data._id} data={data} />
+                    ))
+                    : <p>You need to be a admin</p>
             }
 
             <h1 className='text-2xl font-bold my-10'>live a reply</h1>
