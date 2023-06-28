@@ -11,8 +11,8 @@ export default async function handler(req, res) {
     try {
         await connectMongoDB();
         await verifyToken(req, res);
-        const { email, role } = req.body;
         req.requiredRole = "admin";
+        const { email, role } = req.body;
         // Implementing the middleware
         authMiddleware(req, res, async () => {
             const result = await User.findOneAndUpdate(

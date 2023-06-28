@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     }
     try {
         await connectMongoDB();
-        const data = await Blog.find();
+        const data = await Blog.find().sort({ createdAt: -1 });
         if (data) {
             res.status(200).send({
                 success: true,

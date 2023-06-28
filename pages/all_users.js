@@ -1,3 +1,4 @@
+import Navbar from '@/components/Navbar';
 import { UserContext } from '@/context/userContext';
 import React, { useContext, useEffect, useState } from 'react';
 
@@ -54,21 +55,24 @@ const Users = () => {
             });
     };
     return (
-        <div style={{ maxWidth: "1200px" }} className='mx-auto'>
-            {error && <p className='text-red-500 text-lg font-bold'>{error}</p>}
-            <h1 className='my-10 text-5xl font-bold text-center'>All users</h1>
-            {usersData?.map(data => (
-                <div key={data._id} className='py-5 border-b-2 border-blue-600 flex justify-between items-center'>
-                    <p className='text-lg'>{data.email}</p>
-                    <p className='text-lg font-bold'>{data.role}</p>
-                    {userData.email === data.email && <p className='text-lg font-bold'>Me</p>}
-                    <button className="py-2 px-3 ml-5 bg-red-600 text-white rounded shadow"
-                        onClick={() => handleUserRole(data.role === "admin" ? "user" : "admin", data.email)}
-                        disabled={userData.email === data.email}
-                    >{data.role === "admin" ? "user" : "admin"}</button>
-                </div>
-            ))}
-        </div>
+        <>
+            <Navbar />
+            <div style={{ maxWidth: "1200px" }} className='mx-auto my-10'>
+                {error && <p className='text-red-500 text-lg font-bold'>{error}</p>}
+                <h1 className='my-10 text-5xl font-bold text-center'>All users</h1>
+                {usersData?.map(data => (
+                    <div key={data._id} className='py-5 border-b-2 border-blue-600 flex justify-between items-center'>
+                        <p className='text-lg'>{data.email}</p>
+                        <p className='text-lg font-bold'>{data.role}</p>
+                        {userData.email === data.email && <p className='text-lg font-bold'>Me</p>}
+                        <button className="py-2 px-3 ml-5 bg-red-600 text-white rounded shadow"
+                            onClick={() => handleUserRole(data.role === "admin" ? "user" : "admin", data.email)}
+                            disabled={userData.email === data.email}
+                        >{data.role === "admin" ? "user" : "admin"}</button>
+                    </div>
+                ))}
+            </div>
+        </>
     );
 };
 

@@ -13,7 +13,8 @@ const CommentReplay = ({ handleSubmit, focusedField, handleBlur, email, comment,
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Enter your name"
-                    className='outline-none border-b border-gray-200 focus:border-black py-3'
+                    style={{ background: "#F5F5F5" }}
+                    className='outline-none border-b border-gray-400 focus:border-black py-3'
                     onFocus={() => handleFocus('name')}
                     onBlur={handleBlur}
                     required
@@ -29,7 +30,8 @@ const CommentReplay = ({ handleSubmit, focusedField, handleBlur, email, comment,
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
-                    className='outline-none border-b border-gray-200 focus:border-black py-3'
+                    style={{ background: "#F5F5F5" }}
+                    className='outline-none border-b border-gray-400 focus:border-black py-3'
                     onFocus={() => handleFocus('email')}
                     onBlur={handleBlur}
                     required
@@ -44,14 +46,15 @@ const CommentReplay = ({ handleSubmit, focusedField, handleBlur, email, comment,
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                     placeholder="Enter your comment"
+                    style={{ background: "#F5F5F5" }}
                     rows={4}
-                    className="outline-none border-b border-gray-200 focus:border-black py-3 focus:text-black"
+                    className="outline-none border-b border-gray-400 focus:border-black py-3 focus:text-black"
                     onFocus={() => handleFocus('comment')}
                     onBlur={handleBlur}
                     required
                 />
             </div>
-            <button type="submit" className="outline-none border-b text-gray-500 border-gray-200 hover:border-black  hover:text-black">Submit</button>
+            <button type="submit" className="outline-none border-b text-gray-500 border-gray-400 hover:border-black  hover:text-black">Submit</button>
         </form>
     );
 };

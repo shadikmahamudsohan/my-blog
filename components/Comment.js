@@ -79,12 +79,16 @@ const Comment = ({ id }) => {
         <div className='mb-40'>
             <h1 className='text-2xl font-bold mb-10'>comments</h1>
             {commentLoading || loading ? "loading..." :
-
                 userData.role === "admin" ?
                     commentData?.map(data => (
                         <SingleComment key={data._id} data={data} userData={userData} handleStatusUpdate={handleStatusUpdate} />
                     ))
-                    : <p>You need to be a admin</p>
+                    : commentData?.map(data => (
+                        <>
+                            {data.status !== "approved" &&
+                                < SingleComment key={data._id} data={data} userData={userData} handleStatusUpdate={handleStatusUpdate} />}
+                        </>
+                    ))
             }
 
             <h1 className='text-2xl font-bold my-10'>live a reply</h1>

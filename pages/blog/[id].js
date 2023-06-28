@@ -33,16 +33,19 @@ const Blog = () => {
         <>
             <Navbar />
             <div className='mx-auto' style={{ maxWidth: "1200px", marginTop: "100px" }}>
+                <h1 className="text-3xl font-bold">
+                    {blogData?.title}
+                </h1>
+                <p className="text-sm text-gray-500 mb-10">posted: {new Date(blogData.createdAt).toLocaleDateString()}</p>
+
                 <div style={{ position: 'relative', width: '100%' }}>
                     <div style={{ aspectRatio: '16/9' }}>
                         <Image src={`/images/${blogData?.imageName}`} alt="name" layout="fill" objectFit="cover" />
                     </div>
                 </div>
+
                 <p className="text-lg my-10">
                     {blogData?.description}
-                    একটা সময়ের প্রান্তিক গ্রামে, যেখানে একটি ঘন জঙ্গলে মোড়ানো একটি কিশোরী লিলি নামের। তার আপাততার জন্য অসংখ্য জিজ্ঞাসা ও অভিজ্ঞতা উদ্বেলিত। লিলির দিনগুলি বিচরণ করে তার গ্রামটিকে ঘিরে বস্তবের মধ্যে গোপন রয়েছে ময়ূরকণা উদ্যান আবিষ্কারের খোঁজে।
-
-                    একটি উজ্জ্বল সূর্যের সকালে, লিলি আরো দূরে চলে যাওয়ার সময় একটি প্রাচীন, গেঁথা পথের কাছে পড়ে। কৌতুহলে ভরা, তিনিই তাকে অনুসরণ করল। পথটি তাকে একটি অতীতস্থ বটের দিকে নেয়। বিস্মিত হয়ে লিলি, তার হাতটি কম্পিত করে দিল। সম্পূর্ণ আদিম একটি দরজা খুলে দিল, যা বটের নীচে আছে। টেনে দিলো লিলি।
                 </p>
                 <Comment id={id} />
             </div>

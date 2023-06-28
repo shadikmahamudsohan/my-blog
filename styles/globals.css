@@ -8,6 +8,10 @@
     font-family: sans-serif;
 }
 
+body {
+    background-color: #F5F5F5
+}
+
 .title {
     width: 1200px;
     margin: auto;
