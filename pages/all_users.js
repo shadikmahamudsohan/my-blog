@@ -8,7 +8,7 @@ const Users = () => {
     const [loadingUser, setLoadingUser] = useState(false);
     const [error, setError] = useState("");
     const { userData, loading } = useContext(UserContext);
-
+    console.log(userData);
     useEffect(() => {
         setLoadingUser(true);
         fetch('/api/get_user', {
@@ -57,7 +57,7 @@ const Users = () => {
     return (
         <>
             <Navbar />
-            <div style={{ maxWidth: "1200px" }} className='mx-auto my-10'>
+            <div style={{ maxWidth: "1200px" }} className='mx-auto my-24'>
                 {error && <p className='text-red-500 text-lg font-bold'>{error}</p>}
                 <h1 className='my-10 text-5xl font-bold text-center'>All users</h1>
                 {usersData?.map(data => (

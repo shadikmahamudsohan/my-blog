@@ -13,7 +13,7 @@ export default async function handler(req, res) {
         await connectMongoDB();
         const data = await User.updateOne({ email: userData.email }, { $set: { userData } }, { upsert: true });
         if (data) {
-            const token = generateToken(data);
+            const token = generateToken(userData);
             res.status(200).send({
                 success: true,
                 result: data,

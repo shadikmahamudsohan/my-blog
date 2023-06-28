@@ -24,7 +24,7 @@ const Navbar = () => {
                         <h1 className='text-4xl italic font-bold'>TITLE</h1>
                     </Link>
                     <div className='flex justify-end'>
-                        {userData.role === "admin" && <>
+                        {userData?.role === "admin" && <>
                             <Link href={`/create_blog`}>
                                 <h1 className='font-bold ml-5'>Create Blog</h1>
                             </Link>

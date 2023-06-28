@@ -13,6 +13,7 @@ export default async function handler(req, res) {
         await connectMongoDB();
         await verifyToken(req, res);
         const { email } = req.user;
+        console.log(email);
         const data = await User.findOne({ email });
         res.status(200).json({
             success: true,

@@ -10,7 +10,7 @@ const Login = () => {
     useEffect(() => {
         if (user) {
             fetch('/api/post_user', {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
