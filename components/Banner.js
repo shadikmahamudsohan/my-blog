@@ -3,7 +3,7 @@ import React from 'react';
 
 const Banner = () => {
     return (
-        <div className='grid gap-5 grid-cols-1 md:grid-cols-2'>
+        <div className='grid gap-5 grid-cols-1 md:grid-cols-2 mb-32'>
             <div style={{ width: "100%", }}>
                 <h1 className='text1'>Hello, I am a Shadik</h1>
                 <h2 className='text2'>welcome to my blog</h2>
@@ -15,7 +15,7 @@ const Banner = () => {
                     </div>
                 </div>
             </div>
-            <div style={{ position: 'relative', width: '100%', height: "1100px", marginTop: "-140px" }}>
+            <div style={{ position: 'relative', width: '100%', height: "800px", }}>
                 <Image src={`/images/shadikmahamudimage-transformed.png`} alt="image" layout="fill" objectFit="cover" />
             </div>
         </div>
