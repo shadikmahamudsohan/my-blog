@@ -16,7 +16,7 @@ const Banner = () => {
                 </div>
             </div>
             <div style={{ position: 'relative', width: '100%', height: "1100px", marginTop: "-140px" }}>
-                <Image src={`/images/shadikmahamudimage.png`} alt="image" layout="fill" objectFit="cover" />
+                <Image src={`/images/shadikmahamudimage-transformed.png`} alt="image" layout="fill" objectFit="cover" />
             </div>
         </div>
     );
