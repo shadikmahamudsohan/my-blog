@@ -1,0 +1,73 @@
+.text1 {
+    color: #ADE4FF;
+    font-size: 65px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.text2 {
+    color: #ADE4FF;
+    font-size: 55px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.text3 {
+    color: #7196A8;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.subscribe-container {
+    width: 100%;
+    height: 100px;
+    /* padding: 5px; */
+    padding: 5px 10px;
+    position: relative;
+    box-sizing: border-box;
+    color: #fff;
+    background: #000D15;
+    background-clip: padding-box;
+    border: solid 2px transparent;
+    border-radius: 50px;
+}
+
+.subscribe-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    margin: -3px;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #0582CA 0%, #00CEFB 100%);
+}
+
+.sub-input {
+    width: 100%;
+    height: 85px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: transparent;
+    outline: none;
+    color: #7196A8;
+    font-size: 20px;
+    padding-left: 5px;
+}
+
+.sub-button {
+    width: 200px;
+    height: 75px;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #0582CA 0%, #00CEFB 100%);
+    color: white;
+    font-size: 20px;
+}

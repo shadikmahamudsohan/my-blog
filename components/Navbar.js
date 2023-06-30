@@ -17,9 +17,9 @@ const Navbar = () => {
         };
     }, []);
     return (
-        <div className={` ${scrollY < 99 ? "bg-transparent " : "bg-white fadeIn"} z-50  h-24 flex items-center w-full fixed top-0`}>
+        <div className={` ${scrollY < 50 ? "bg-transparent " : "nav-container fadeIn"} sticky top-0`}>
             <div className='mx-auto' style={{ width: "1200px" }}>
-                <div className='flex justify-between items-center'>
+                <div className='flex justify-between items-center h-[100px] nav-details'>
                     <Link href={`/`}>
                         <h1 className='text-4xl italic font-bold'>TITLE</h1>
                     </Link>
