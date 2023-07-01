@@ -3,13 +3,31 @@
     height: 500px;
     flex-shrink: 0;
     border-radius: 500px;
-    background: linear-gradient(-45deg, rgba(5, 130, 202, 1), rgb(5, 202, 186), rgb(5, 90, 202), rgba(5, 130, 202, 1));
-    background-size: 400% 400%;
+    background: rgb(2, 33, 80);
+    background: linear-gradient(101deg, rgba(2, 33, 80, 1) 0%, rgba(0, 138, 127, 1) 49%, rgba(173, 255, 210, 1) 100%);
     filter: blur(100px);
     position: fixed;
-    animation: moveElement 200s linear infinite, colorChange 30s linear infinite, opacityChange 10s linear infinite;
+    animation: moveElement 30s linear infinite, opacityChange 10s linear infinite;
     opacity: 0.5;
     z-index: -2;
+    top: -20%;
+    left: -20%;
+}
+
+#light2 {
+    width: 500px;
+    height: 500px;
+    flex-shrink: 0;
+    border-radius: 500px;
+    background: rgb(2, 33, 80);
+    background: linear-gradient(101deg, rgba(2, 33, 80, 1) 0%, rgba(0, 138, 127, 1) 49%, rgba(173, 255, 210, 1) 100%);
+    filter: blur(100px);
+    position: fixed;
+    animation: moveElement2 30s linear infinite, opacityChange 10s linear infinite;
+    opacity: 0.5;
+    z-index: -2;
+    top: 80%;
+    left: 80%;
 }
 
 @keyframes moveElement {
@@ -39,20 +57,6 @@
     }
 }
 
-@keyframes colorChange {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
 @keyframes opacityChange {
     0% {
         opacity: 0.5;
@@ -68,25 +72,6 @@
 }
 
 
-
-
-
-
-
-
-#light2 {
-    width: 500px;
-    height: 500px;
-    flex-shrink: 0;
-    border-radius: 500px;
-    background: linear-gradient(-45deg, rgba(5, 130, 202, 1), rgb(5, 202, 186), rgb(5, 90, 202), rgba(5, 130, 202, 1));
-    background-size: 400% 400%;
-    filter: blur(100px);
-    position: fixed;
-    animation: moveElement2 200s linear infinite, colorChange 30s linear infinite, opacityChange 10s linear infinite;
-    opacity: 0.5;
-    z-index: -2;
-}
 
 @keyframes moveElement2 {
     0% {
